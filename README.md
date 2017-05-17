@@ -45,6 +45,10 @@ Add `libRNAnalytics.a、
       compile project(':react-native-baidu-analytics')
   	```
 
+## SDK版本
+iOS ： 基础分析v4.5.0  Crash分析v4.5.0
+Android： com.baidu.mobstat:mtj-sdk:latest.integration
+
 ## API
 
 * start(options)

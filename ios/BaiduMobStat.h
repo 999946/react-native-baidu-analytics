@@ -23,7 +23,7 @@ typedef enum _BaiduMobStatLogStrategy {
 
 /**
  百度移动应用统计接口
- 当前版本 4.4.0
+ 当前版本 4.5.0
  */
 @interface BaiduMobStat : NSObject
 /**
@@ -146,6 +146,35 @@ typedef enum _BaiduMobStatLogStrategy {
 
 
 /**
+ 记录一次事件的点击，eventId和对应的attribute的key请在网站上创建，未创建的evenId和key将无法统计。
+ 
+ @param eventId 事件Id，提前在网站端创建
+ @param eventLabel 事件标签，附加参数，不能为空字符串
+ @param attributes 事件属性，对应的key需要在网站上创建，注意：value只接受NSString
+ */
+- (void)logEvent:(NSString *)eventId eventLabel:(NSString *)eventLabel attributes:(NSDictionary *)attributes;
+
+/**
+ 记录一次事件的时长，eventId和对应的attribute的key请在网站上创建，未创建的evenId和key将无法统计。
+ 
+ @param eventId 自定义事件Id，提前在网站端创建
+ @param eventLabel 自定义事件Label，附加参数，不能为空字符串
+ @param duration 已知的自定义事件时长，单位为毫秒（ms）
+ @param attributes 事件属性，对应的key需要在网站上创建，注意：value只接受NSString
+ */
+- (void)logEventWithDurationTime:(NSString *)eventId eventLabel:(NSString *)eventLabel durationTime:(unsigned long)duration attributes:(NSDictionary *)attributes;
+
+/**
+ 记录一次事件的结束，eventId和对应的attribute的key请在网站上创建，未创建的evenId和key将无法统计。
+ 
+ @param eventId 自定义事件Id，提前在网站端创建
+ @param eventLabel 自定义事件Label，附加参数，不能为空字符串
+ @param attributes 事件属性，对应的key需要在网站上创建，注意：value只接受NSString
+ */
+- (void)eventEnd:(NSString *)eventId eventLabel:(NSString *)eventLabel attributes:(NSDictionary *) attributes;
+
+
+/**
  记录某个页面访问的开始，请参见Example程序，在合适的位置调用。
  建议在ViewController的viewDidAppear函数中调用
  
@@ -172,6 +201,17 @@ typedef enum _BaiduMobStatLogStrategy {
  */
 - (void)webviewStartLoadWithRequest:(NSURLRequest *)request;
 
+
+/**
+ 记录WkWebView中的行为（需要在网页的JS代码中进行相应配置，详见文档与Demo程序）
+ 在WkWebview的代理方法:
+ -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+ 中，调用此接口，传入参数为message.name和message.body，开始统计JS中的操作
+ 
+ @param name WKScriptMessage的name
+ @param body WKScriptMessage的body 只接受NSDictionary类型
+ */
+- (void)didReceiveScriptMessage:(NSString*)name body:(NSDictionary *)body;
 /**
  获取cuid的值
  返回SDK生成的cuid
