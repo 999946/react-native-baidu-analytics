@@ -12,8 +12,5 @@
     "analytics"
   ],
   "author": "lzw",
-  "license": "MIT",
-  "peerDependencies": {
-    "react-native": ">=0.29.0"
-  }
+  "license": "MIT"
 }
