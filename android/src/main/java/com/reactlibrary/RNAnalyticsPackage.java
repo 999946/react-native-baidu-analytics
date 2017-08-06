@@ -16,7 +16,6 @@ public class RNAnalyticsPackage implements ReactPackage {
       return Arrays.<NativeModule>asList(new RNAnalyticsModule(reactContext));
     }
 
-    @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
       return Collections.emptyList();
     }
